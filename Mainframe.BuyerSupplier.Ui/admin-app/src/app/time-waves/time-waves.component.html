@@ -1,0 +1,74 @@
+<div class="grid-container">
+
+  <h1 class="mat-h1">
+    Time Waves List
+  </h1>  
+  
+  <button mat-raised-button (click)="add()" color="primary">
+    Add new Time Wave
+  </button>
+
+  <br/><br/>
+
+  <h4 class="mat-h4" *ngIf="timeWavesList?.data.length==0">
+    No Time Waves Found.
+  </h4>
+
+  <mat-form-field class="full-width-table" *ngIf="timeWavesList?.data.length>0">
+      <input matInput (keyup)="applyFilter()" placeholder="Search" [(ngModel)]="filterValue" id="time-wave-search">
+  </mat-form-field>
+  <h4 class="mat-h4" *ngIf="timeWavesList.data.length>0 && timeWavesList.filteredData.length==0">
+      No records Found.
+    </h4>
+  
+  <div class="mat-elevation-z8"  >
+    
+    <table mat-table matSortActive="id" matSortDirection="asc"  [dataSource]="timeWavesList" matSort  class="full-width-table" aria-label="Elements">
+
+  <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Wave Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="time">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Time </th>
+        <td mat-cell *matCellDef="let element"> {{element.time}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+        <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="edit">
+        <th mat-header-cell *matHeaderCellDef  style="width: 50px"></th>
+        <td mat-cell  *matCellDef="let element"> 
+          <button mat-button (click)="edit(element)" >
+            <mat-icon  title="Edit" id="time-wave-btn-edit">edit</mat-icon>
+          </button>
+        </td> 
+  </ng-container>
+
+  <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef  style="width: 50px"></th>
+        <td mat-cell  *matCellDef="let element"> 
+        <button mat-button (click)="delete(element)" >
+          <mat-icon  title="Delete" id="time-wave-btn-delete">delete</mat-icon>
+          </button>
+        </td>
+    </ng-container>
+ 
+      <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+    
+    <mat-paginator  
+     [pageSizeOptions]="[10, 20, 50, 100]"></mat-paginator>
+  </div>
+</div>

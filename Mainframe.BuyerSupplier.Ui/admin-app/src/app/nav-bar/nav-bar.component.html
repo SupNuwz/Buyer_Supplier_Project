@@ -1,0 +1,126 @@
+<mat-sidenav-container class="sidenav-container">
+
+  <mat-sidenav #drawer class="sidenav" 
+  fixedInViewport="true"
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'">
+     
+      <mat-toolbar color="primary"><span>Menu</span></mat-toolbar>
+
+      <mat-nav-list>
+          
+        <div *ngFor="let item of navBarItems">
+
+          <a mat-list-item  (click)="current = item.name" *ngIf="item.isMenuItem == false" routerLink="{{item.routerLink}}" 
+          routerLinkActive="active-link-vertical" [routerLinkActiveOptions]="{exact:true}">
+          <mat-icon >{{item.title}}</mat-icon>
+        
+          <span style="padding-left: 10px;">{{item.name}}</span>
+          </a>
+
+        <div  *ngIf="item.isMenuItem == true" style="margin-left: -20px;" >
+            <mat-expansion-panel style="border-radius: 0px !important">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <mat-icon >{{item.title}}</mat-icon>
+                    <span style="padding-left: 10px;">{{item.name}}</span>
+                </mat-panel-title>
+              </mat-expansion-panel-header>      
+                 
+              <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
+                  
+                      <a mat-list-item *cdkVirtualFor="let item of item.childs" routerLink={{item.routerLink}} (click)="current = item.name" 
+                      routerLinkActive="active-link-vertical" [routerLinkActiveOptions]="{exact:true}">
+                          <mat-icon >{{item.title}}</mat-icon>
+                              <span style="padding-left: 10px;">{{item.name}}</span>
+                        </a>  
+                 
+                </cdk-virtual-scroll-viewport>
+              
+              <!--<a mat-list-item *ngFor="let item of item.childs" routerLink={{item.routerLink}}>
+                  <mat-icon >{{item.title}}</mat-icon>
+                  <span style="padding-left: 10px;">{{item.name}}</span>
+                </a>-->
+            </mat-expansion-panel>
+           
+          </div>
+     </div>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+     
+        (click)="drawer.toggle()">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+
+      <mat-nav-list>
+          <a mat-list-item routerLink="/home" (click)="current = 'home'" >        
+            <div >
+              <mat-icon aria-label="Side nav toggle icon" title="Home" >home_outline</mat-icon>           
+              <span >Home</span>
+              <div class="mat-ink-bar-horizontal"[style.visibility]="current === 'home' ? 'visible' : 'hidden'"></div>
+      
+            </div>
+            </a>
+        </mat-nav-list>
+
+        <mat-nav-list *ngIf='!(isHandset$ | async)'>
+
+            <a mat-list-item *ngFor="let item of navBarItems" routerLink={{item.routerLink}}
+             routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:true}">    
+             
+              <div *ngIf="item.isMenuItem == false"  (click)="current = item.name"> 
+               <mat-icon >{{item.title}}</mat-icon>
+                <span >{{item.name}}</span>
+              
+              </div>          
+
+              <div *ngIf="item.isMenuItem == true" [matMenuTriggerFor]="subMenu" [matMenuTriggerData]='{data:item.childs}'>
+                  <mat-icon >{{item.title}}</mat-icon>
+                   <span >{{item.name}}</span>
+          
+              </div> 
+            </a>   
+
+            <mat-menu #subMenu="matMenu">
+                <ng-template matMenuContent let-data="data" >
+                <a mat-menu-item *ngFor="let childItem of data" routerLink={{childItem.routerLink}} (click)="current = childItem.name" 
+                routerLinkActive="active-link-vertical" [routerLinkActiveOptions]="{exact:true}">
+                    <mat-icon >{{childItem.title}}</mat-icon>
+         
+                    <span >{{childItem.name}}</span>
+                  
+                </a> 
+                </ng-template>
+            </mat-menu>
+
+        </mat-nav-list>
+
+    <span class="right-align"></span>
+    <mat-nav-list >
+
+          <a mat-list-item  [matMenuTriggerFor]="menu" >        
+            <div >
+              <mat-icon  title="Logged User" >account_circle</mat-icon>
+              <span >Milinda Ellawala</span>
+            </div>
+          </a> 
+
+    </mat-nav-list>
+
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item>Settings</button>
+        <button mat-menu-item>Sign out</button>
+      </mat-menu>
+
+    </mat-toolbar>
+    <router-outlet>     
+      </router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

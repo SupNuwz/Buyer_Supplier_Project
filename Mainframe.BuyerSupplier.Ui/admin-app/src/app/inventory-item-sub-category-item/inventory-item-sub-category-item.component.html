@@ -1,0 +1,64 @@
+
+  <form [formGroup]="inventoryItem" validate>
+  <h2 mat-dialog-title> {{header}} </h2>
+
+  <mat-dialog-content class="mat-typography">
+
+  <div class="example-container">
+  
+    <mat-form-field class="example-full-width" >
+      <mat-select placeholder="Inventory Item Category Name " [(ngModel)]="inventoryItemSubCategoryItem.inventoryItemCategoryID" name="Inventory Item Sub Category ID" 
+      formControlName="inventoryItemCategoryID" id="inventory-item-sub-category-id" required>
+      <mat-option *ngFor="let inventoryCategoryItem of inventoryItemCategoryList" [value]="inventoryCategoryItem.id">{{ inventoryCategoryItem.name }}</mat-option>
+      </mat-select>  
+      <mat-error *ngFor="let validation of validation_messages.inventoryItemCategoryID">
+
+          <mat-error class="error-message" *ngIf="inventoryItem.get('inventoryItemCategoryID').hasError(validation.type)">
+          
+          {{validation.message}}
+          
+          </mat-error>
+          
+          </mat-error>
+      
+      </mat-form-field>  
+
+    <mat-form-field class="example-full-width">
+    <input matInput placeholder="Inventory Item Sub Category Name"  maxlength="20" [(ngModel)]="inventoryItemSubCategoryItem.name"  name="name" 
+    formControlName="name" id="inventory-item-sub-category-name" required>
+    <mat-error *ngFor="let validation of validation_messages.name">
+
+        <mat-error class="error-message" *ngIf="inventoryItem.get('name').hasError(validation.type)">
+        
+        {{validation.message}}
+        
+        </mat-error>
+        
+        </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Inventory Item Sub Category Description"  maxlength="100" [(ngModel)]="inventoryItemSubCategoryItem.description"  name="description" 
+    formControlName="description" id="inventory-item-sub-category-des" required>
+    <mat-error *ngFor="let validation of validation_messages.description">
+
+        <mat-error class="error-message" *ngIf="inventoryItem.get('description').hasError(validation.type)">
+        
+        {{validation.message}}
+        
+        </mat-error>
+        
+        </mat-error>
+  </mat-form-field>
+
+  </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-raised-button [mat-dialog-close]="true" color="primary" id="inventory-item-sub-category-btn-cancel"> Cancel</button> 
+    <button mat-raised-button cdkFocusInitial (click)="save()" color="primary" [disabled]="!inventoryItem.valid" id="inventory-item-sub-category-btn-save"> Save</button> 
+  </mat-dialog-actions>
+
+</form>
+
+    

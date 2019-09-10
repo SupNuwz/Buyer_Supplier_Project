@@ -1,0 +1,86 @@
+<form [formGroup]="DeliverySlotForm" validate>
+    <h2 mat-dialog-title> {{header}}</h2>
+    <mat-dialog-content class="mat-typography">
+        <div class="delivery-slot-container">
+      
+          <mat-form-field>
+                <input type="string" matInput placeholder="Slot Name" formControlName="slotName"  [(ngModel)]="slotItem.slotName" name="slotName" #slotName="matInput" id="delivery-slot-name" required>
+                <mat-error *ngFor="let validation of validationMessages.slotName">
+                  <mat-error class="error-message" *ngIf="DeliverySlotForm.get('slotName').hasError(validation.type)">
+                    {{validation.message}}
+                  </mat-error>
+                </mat-error>
+            </mat-form-field>
+          
+            <mat-form-field>
+                <input matInput type="time" placeholder="Cutoff Time (HH:mm)" formControlName="cutoffTime" [(ngModel)]="slotItem.cutoffTime" name="cutoffTime" id="delivery-slot-cutoff-time" required >
+                <mat-error *ngFor="let validation of validationMessages.cutoffTime">
+                  <mat-error class="error-message" *ngIf="DeliverySlotForm.get('cutoffTime').hasError(validation.type)">
+                    {{validation.message}}
+                  </mat-error>
+                </mat-error>
+            </mat-form-field>
+      
+            <mat-form-field >
+                <input type="time" matInput placeholder="Start Time (HH:mm)" formControlName="startTime" [(ngModel)]="slotItem.startTime" name="startTime" id="delivery-slot-start-time" required >
+                <mat-error *ngFor="let validation of validationMessages.startTime">
+                  <mat-error class="error-message" *ngIf="DeliverySlotForm.get('startTime').hasError(validation.type)">
+                    {{validation.message}}
+                  </mat-error>
+                </mat-error>
+            </mat-form-field>
+      
+            <mat-form-field>
+                <input type="time" matInput placeholder="Countdown Time (HH:mm)" formControlName="countdownTime" [(ngModel)]="slotItem.countdownTime" name="countdownTime" id="delivery-slot-countdown-time" required >
+                <mat-error *ngFor="let validation of validationMessages.countdownTime">
+                  <mat-error class="error-message" *ngIf="DeliverySlotForm.get('countdownTime').hasError(validation.type)">
+                    {{validation.message}}
+                  </mat-error>
+                </mat-error>
+            </mat-form-field>
+        
+            <mat-form-field >
+                <input type="time" matInput placeholder="Order Accept Time (HH:mm)" formControlName="orderAcceptTime" [(ngModel)]="slotItem.orderAcceptTime" name="orderAcceptTime" id="delivery-slot-accept-time" required >
+                <mat-error *ngFor="let validation of validationMessages.orderAcceptTime">
+                  <mat-error class="error-message" *ngIf="DeliverySlotForm.get('orderAcceptTime').hasError(validation.type)">
+                    {{validation.message}}
+                  </mat-error>
+                </mat-error>
+            </mat-form-field>
+      
+            <mat-form-field >
+                <input type="time" matInput placeholder="Confirmation Cutoff Time (HH:mm)" formControlName="orderCofirmTime" [(ngModel)]="slotItem.orderCofirmTime" name="orderCofirmTime" id="delivery-slot-confirmation-time" required >
+                <mat-error *ngFor="let validation of validationMessages.orderCofirmTime">
+                  <mat-error class="error-message" *ngIf="DeliverySlotForm.get('orderCofirmTime').hasError(validation.type)">
+                    {{validation.message}}
+                  </mat-error>
+                </mat-error>
+            </mat-form-field>
+      
+            <mat-form-field >
+                <input type="time" matInput placeholder="Order Dispatch Time (HH:mm)" formControlName="dispatchesConfirmTime" [(ngModel)]="slotItem.dispatchesConfirmTime" name="dispatchesConfirmTime" id="delivery-slot-dispatch-time" required >
+                <mat-error *ngFor="let validation of validationMessages.dispatchesConfirmTime">
+                  <mat-error class="error-message" *ngIf="DeliverySlotForm.get('dispatchesConfirmTime').hasError(validation.type)">
+                    {{validation.message}}
+                  </mat-error>
+                </mat-error>
+            </mat-form-field>
+      
+            <mat-form-field >
+                <input type="time" matInput placeholder="End Time (HH:mm)" formControlName="endTime" [(ngModel)]="slotItem.endTime" name="endTime" id="delivery-slot-end-time" required >
+                <mat-error *ngFor="let validation of validationMessages.endTime">
+                  <mat-error class="error-message" *ngIf="DeliverySlotForm.get('endTime').hasError(validation.type)">
+                    {{validation.message}}
+                  </mat-error>
+                </mat-error>
+            </mat-form-field>
+      
+        </div>
+      
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+            <button  mat-raised-button [mat-dialog-close]="true" color="primary" id="delivery-slot-btn-cancel">Cancel</button>
+            <button  mat-raised-button cdkFocusInitial  (click)="save()" color="primary" [disabled]="!DeliverySlotForm.valid" id="delivery-slot-btn-save">Save</button>
+      </mat-dialog-actions>
+</form>
+  

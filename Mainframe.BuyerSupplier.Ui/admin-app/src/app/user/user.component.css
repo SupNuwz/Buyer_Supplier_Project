@@ -1,0 +1,5 @@
+.hide_arrow::-webkit-inner-spin-button, .hide_arrow::-webkit-outer-spin-button {
+  -webkit-appearance: none !important;
+  margin: 0 !important;
+  -moz-appearance:textfield !important;
+}

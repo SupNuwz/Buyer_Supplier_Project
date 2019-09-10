@@ -1,0 +1,95 @@
+<form [formGroup]="vehicleForm" validate>
+  <h2 mat-dialog-title> {{header}} </h2>
+  <mat-dialog-content class="mat-typography">
+    <div class="example-container">
+  
+        
+      <mat-form-field class="example-full-width">
+          <mat-select placeholder="Supplier Base Location" formControlName="supplierBase" [(ngModel)]="vehicleItem.supplierBaseId" name="supplierBaseId" id="vehicle-supplier-base" required>
+            <mat-option *ngFor="let supplierBaseItem of supplierBaseList" [value]="supplierBaseItem.supplierBaseId">
+              {{ supplierBaseItem.supplierBaseName }}
+            </mat-option>
+          </mat-select> 
+          <mat-error *ngFor="let validation of validationMessages.supplierBase">
+            <mat-error class="error-message" *ngIf="vehicleForm.get('supplierBase').hasError(validation.type)">
+              {{validation.message}}
+            </mat-error>
+          </mat-error>
+      </mat-form-field>
+  
+        <mat-form-field class="example-full-width">
+          <input type="number" matInput placeholder="Driver Contact Number" formControlName="driverContactNo"  [(ngModel)]="vehicleItem.driverContactNo"  name="name" id="vehicle-driver-contact-no" required>
+          <mat-error *ngFor="let validation of validationMessages.name">
+            <mat-error class="error-message" *ngIf="vehicleForm.get('name').hasError(validation.type)">
+              {{validation.message}}
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
+  
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Number Plate" formControlName="numberPlate" maxlength="12" [(ngModel)]="vehicleItem.numberPlate"  name="numberPlate" id="vehicle-number-plate" required>
+          <mat-error *ngFor="let validation of validationMessages.numberPlate">
+            <mat-error class="error-message" *ngIf="vehicleForm.get('numberPlate').hasError(validation.type)">
+              {{validation.message}}
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <mat-select placeholder="Vehicle type" formControlName="vehicleType" [(ngModel)]="vehicleItem.vehicleTypeId" name="vehicleTypeId" id="vehicle-vehicle-type" required>
+            <mat-option *ngFor="let vehicleTypeItem of vehicleTypeList" [value]="vehicleTypeItem.id">
+              {{ vehicleTypeItem.name }}
+            </mat-option>
+          </mat-select> 
+          <mat-error *ngFor="let validation of validationMessages.vehicleType">
+            <mat-error class="error-message" *ngIf="vehicleForm.get('vehicleType').hasError(validation.type)">
+              {{validation.message}}
+            </mat-error>
+          </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <input matInput type="color" placeholder="Color Code" formControlName="colorCode" [(ngModel)]="vehicleItem.colorCode"  name="colorCode" id="vehicle-colorCode" required>
+        <mat-error *ngFor="let validation of validationMessages.colorCode">
+          <mat-error class="error-message" *ngIf="vehicleForm.get('colorCode').hasError(validation.type)">
+            {{validation.message}}
+          </mat-error>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Maximum Capacity" formControlName="maximumCapacity" [(ngModel)]="vehicleItem.maximumCapacity"  name="maximumCapacity" id="vehicle-maximumCapacity" required>
+        <mat-error *ngFor="let validation of validationMessages.maximumCapacity">
+          <mat-error class="error-message" *ngIf="vehicleForm.get('maximumCapacity').hasError(validation.type)">
+            {{validation.message}}
+          </mat-error>
+        </mat-error>
+      </mat-form-field>   
+     
+
+        <mat-slide-toggle class="matInput" [(ngModel)]="vehicleItem.availability" formControlName="availability" id="availability">Availability</mat-slide-toggle>
+
+        <br/>
+
+    
+      <!-- (change)="onChange($event)" -->
+        <!-- <mat-form-field class="example-full-width"> -->
+          <!-- <input type="text" matInput placeholder="Availability" formControlName="availability"  [(ngModel)]="vehicleItem.availability"  name="availability" id="vehicle-availability" required> -->
+          <!-- <mat-error *ngFor="let validation of validationMessages.availability">
+            <mat-error class="error-message" *ngIf="vehicleForm.get('availabiity').hasError(validation.type)">
+              {{validation.message}}
+            </mat-error>
+          </mat-error> -->
+        <!-- </mat-form-field> -->
+  
+    </div>
+  </mat-dialog-content>
+  
+  <mat-dialog-actions align="end">
+    <button mat-raised-button [mat-dialog-close]="true" color="primary" id="vehicle-btn-cancel"> Cancel</button> 
+    <button mat-raised-button cdkFocusInitial (click)="save()" color="primary" [disabled]="!vehicleForm.valid" id="vehicle-btn-save"> Save</button> 
+  </mat-dialog-actions>
+</form>
+ 
+
+    

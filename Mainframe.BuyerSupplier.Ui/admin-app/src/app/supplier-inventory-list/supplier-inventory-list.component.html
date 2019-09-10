@@ -1,0 +1,48 @@
+<h2 mat-dialog-title>
+  {{heading}} 
+</h2>
+  
+<mat-dialog-content class="mat-typography">
+  <div class="example-container">
+  <div class="mat-elevation-z8">
+
+    <table mat-table matSortActive="id" matSortDirection="asc" [dataSource]="supplierInventoryList" class="mat-elevation-z8" class="full-width-table" 
+    matSort aria-label="Elements">
+
+
+    <!-- Item Column -->
+    <ng-container matColumnDef="unitPrice">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Unit Price </th>
+      <td mat-cell *matCellDef="let element"> {{element.unitPrice}} </td>
+    </ng-container>
+
+    <!-- Item Group Column -->
+    <ng-container matColumnDef="qty">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Qty </th>
+      <td mat-cell *matCellDef="let element"> {{element.qty}} </td>
+    </ng-container>
+
+    <!-- Item Group Column -->
+    <ng-container matColumnDef="availableQty">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Available Qty </th>
+      <td mat-cell *matCellDef="let element"> {{element.availableQty}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+
+    <mat-paginator 
+    [length]="supplierInventoryList.data.length"
+    [pageIndex]="0"
+    [pageSize]="5"
+    [pageSizeOptions]="[5, 10, 20, 50]"></mat-paginator>
+
+  </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button  mat-raised-button [mat-dialog-close]="true" color="primary" id="supplier-inventory-btn-ok">OK</button>
+</mat-dialog-actions>

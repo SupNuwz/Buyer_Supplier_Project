@@ -1,0 +1,87 @@
+<div class="grid-container">
+  <h1 class="mat-h1">Vehicle List </h1>  
+  <button mat-raised-button (click)="add()" color="primary" id="standard-inventory-btn-add">Add new Vehicle</button>
+  
+  <br/><br/>
+
+  <h4 class="mat-h4" *ngIf="vehicleList?.data.length==0">
+    No Vehicles Found.
+  </h4>
+
+  <mat-form-field class="full-width-table" *ngIf="vehicleList?.data.length>0">
+      <input matInput (keyup)="applyFilter()" placeholder="Search" [(ngModel)]="filterValue" id="vehicle-search">
+  </mat-form-field>
+
+    <h4 class="mat-h4" *ngIf="vehicleList?.data.length>0 && vehicleList?.filteredData.length==0">
+        No matching records found
+    </h4>
+
+<div class="mat-elevation-z8" >
+
+  <table mat-table [dataSource]="vehicleList" matSort 
+    matSortActive="id" matSortDirection="asc" 
+   class="full-width-table" aria-label="Elements">
+
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="supplierBaseId">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Base Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.supplierBase}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="driverContactNo">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Driver Contact Number </th>
+    <td mat-cell *matCellDef="let element"> {{element.driverContactNo}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="numberPlate">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Number Plate </th>
+    <td mat-cell *matCellDef="let element"> {{element.numberPlate}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="vehicleTypeId">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Vehicle Type </th>
+    <td mat-cell *matCellDef="let element"> {{element.vehicleType}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="colorCode">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Color Code </th>
+    <td mat-cell *matCellDef="let element">
+    <button class="colour" [style.background-color]=element.colorCode ></button> </td>
+  </ng-container>
+
+  <ng-container matColumnDef="maximumCapacity">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Maximum Capacity </th>
+    <td mat-cell *matCellDef="let element"> {{element.maximumCapacity}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="availability">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Availability </th>
+    <td mat-cell *matCellDef="let element"> {{element.availability}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="edit">
+    <th mat-header-cell *matHeaderCellDef  style="width: 50px"> </th>
+    <td mat-cell  *matCellDef="let element"> 
+    <button mat-button (click)="edit(element)" ><mat-icon  title="Edit" id="vehicle-btn-edit">edit</mat-icon></button></td> 
+  </ng-container>
+
+  <ng-container matColumnDef="delete">
+      <th mat-header-cell *matHeaderCellDef  style="width: 50px"> </th>
+      <td mat-cell  *matCellDef="let element"> 
+      <button mat-button (click)="delete(element)" ><mat-icon  title="Delete" id="vehicle-btn-delete">delete</mat-icon>
+      </button></td> 
+    </ng-container>
+ 
+  <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;">  </tr>
+</table>
+
+<mat-paginator 
+  [length]="vehicleList?.filteredData.length" 
+[pageSizeOptions]="[10, 20, 50, 100]"> </mat-paginator>
+</div>
+</div>

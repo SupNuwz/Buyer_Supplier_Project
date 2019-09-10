@@ -1,0 +1,14 @@
+<div></div>
+<div style="margin:100px">
+  <mat-form-field  class="example-third-one-width-control">
+    <mat-select placeholder="Delivery Slot" name="deliverySlot" id="order-delivery-slot" [(value)]="selectedDeliverySlot" >
+      <mat-option *ngFor="let deliverySlot of deliverySlotList"  [value]="deliverySlot" >{{ deliverySlot.slotName }}</mat-option>
+    </mat-select>  
+  </mat-form-field>
+</div>
+<div style="margin:100px">
+  <button class="more-button" mat-raised-button  
+        (click)="Click()" color="primary">
+          Wave Management
+      </button>
+</div>

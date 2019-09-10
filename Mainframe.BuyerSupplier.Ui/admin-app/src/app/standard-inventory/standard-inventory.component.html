@@ -1,0 +1,82 @@
+<div class="grid-container">
+    <h1 class="mat-h1">Standard Inventory List </h1>  
+    <button mat-raised-button (click)="add()" color="primary" id="standard-inventory-btn-add">Add new Inventory</button>
+    
+    <br/><br/>
+
+    <h4 class="mat-h4" *ngIf="standardInventoryList?.data.length==0">
+      No Standard Inventories Found.
+    </h4>
+
+    <mat-form-field class="full-width-table" *ngIf="standardInventoryList?.data.length>0">
+        <input matInput (keyup)="applyFilter()" placeholder="Search" [(ngModel)]="filterValue" id="standard-inventory-search">
+    </mat-form-field>
+
+      <h4 class="mat-h4" *ngIf="standardInventoryList?.data.length>0 && standardInventoryList?.filteredData.length==0">
+          No matching records found
+      </h4>
+
+<div class="mat-elevation-z8" >
+
+    <table mat-table [dataSource]="standardInventoryList" matSort 
+      matSortActive="id" matSortDirection="asc" 
+     class="full-width-table" matSort aria-label="Elements">
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="itemName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.itemName}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="inventoryItemCategoryId">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Category </th>
+      <td mat-cell *matCellDef="let element"> {{element.inventoryItemCategoryName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="inventoryItemSubCategoryId">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Sub Category </th>
+      <td mat-cell *matCellDef="let element"> {{element.inventoryItemSubCategoryName}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="quantityUnitOfMesureId">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Order Quantity Basis</th>
+      <td mat-cell *matCellDef="let element"> {{element.quantityUnitOfMeasureName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="seasonality">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Seasonality </th>
+      <td mat-cell *matCellDef="let element"> {{element.seasonality}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="minimumInventory">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Minimum Inventory Level</th>
+      <td mat-cell  *matCellDef="let element"> {{element.minimumInventory}} </td> 
+    </ng-container>
+
+    <ng-container matColumnDef="edit">
+      <th mat-header-cell *matHeaderCellDef  style="width: 50px"> </th>
+      <td mat-cell  *matCellDef="let element"> 
+      <button mat-button (click)="edit(element)" ><mat-icon  title="Edit" id="standard-inventory-btn-edit">edit</mat-icon></button></td> 
+    </ng-container>
+
+    <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef  style="width: 50px"> </th>
+        <td mat-cell  *matCellDef="let element"> 
+        <button mat-button (click)="delete(element)" ><mat-icon  title="Delete" id="standard-inventory-btn-delete">delete</mat-icon>
+        </button></td> 
+      </ng-container>
+   
+    <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;">  </tr>
+  </table>
+
+  <mat-paginator 
+    [length]="standardInventoryList?.filteredData.length" 
+  [pageSizeOptions]="[10, 20, 50, 100]"> </mat-paginator>
+</div>
+</div>

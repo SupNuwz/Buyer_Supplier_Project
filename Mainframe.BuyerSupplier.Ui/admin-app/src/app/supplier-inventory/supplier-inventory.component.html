@@ -1,0 +1,67 @@
+<div class="grid-container">
+   <h1 class="mat-h1">
+    Supplier Inventory 
+  </h1>
+  <br/>
+
+  <br/>
+
+  <h4 class="mat-h4" *ngIf="supplierStandardInventoryList?.data.length==0">
+    No Supplier Standard Inventories Found.
+  </h4>
+
+  <mat-form-field class="full-width-table"  *ngIf="supplierStandardInventoryList?.data.length>0" >
+      <input  name = "supplierInventorySearch" matInput (keyup)="applyFilter($event.target.value)" placeholder="Search" id="supplier-inventory-search">
+    </mat-form-field>
+
+    <h4 class="mat-h4" *ngIf="supplierStandardInventoryList?.data.length>0 && supplierStandardInventoryList?.filteredData.length==0">
+        No matching records found
+    </h4>
+
+  <div class="mat-elevation-z8"   >
+
+    <table mat-table matSortActive="id" matSortDirection="asc" [dataSource]="supplierStandardInventoryList" class="mat-elevation-z8" class="full-width-table" 
+    matSort aria-label="Elements">
+
+
+    <!-- Item Column -->
+    <ng-container matColumnDef="inventoryItemName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Item </th>
+      <td mat-cell *matCellDef="let element"> {{element.inventoryItemName}} </td>
+    </ng-container>
+
+    <!-- Item Group Column -->
+    <ng-container matColumnDef="itemGroup">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Item Group </th>
+      <td mat-cell *matCellDef="let element"> {{element.group}} </td>
+    </ng-container>
+
+    <!-- Add Column -->  
+    <ng-container matColumnDef="add">
+      <th mat-header-cell *matHeaderCellDef style="width: 50px"></th>
+      <td mat-cell *matCellDef="let element"> 
+      <button mat-button (click)="add(element)"> <mat-icon  title="Add" id="supplier-inventory-btn-add">add</mat-icon></button>
+      </td>
+    </ng-container>
+
+    <!-- View Column -->  
+    <ng-container matColumnDef="view">
+      <th mat-header-cell *matHeaderCellDef style="width: 50px"></th>
+      <td mat-cell *matCellDef="let element"> 
+      <button mat-button (click)="view(element)"> <mat-icon  title="View" id="supplier-inventory-btn-list">list</mat-icon></button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+
+    <mat-paginator 
+    [length]="supplierStandardInventoryList.data.length"
+    [pageSize]="5"
+    [pageSizeOptions]="[5, 10, 20, 50]"></mat-paginator>
+
+  </div>
+
+</div>

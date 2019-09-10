@@ -1,0 +1,96 @@
+<form [formGroup]="standardInventoryForm" validate>
+
+<h2 mat-dialog-title> {{header}}</h2>
+<mat-dialog-content class="mat-typography">
+<mat-tab-group>
+<mat-tab label="Standard Inventory ">
+<div class="example-container">
+<br/>
+<h2 mat-dialog-title>Enter Standard Inventory Details</h2>   
+
+<mat-form-field class="example-full-width">
+    <input  matInput placeholder="Item Name" formControlName="itemName" #itemName="matInput" maxlength="35" [(ngModel)]="inventoryItem.itemName" name="itemName" id="standard-inventory-name" required>
+        <mat-error *ngFor="let validation of validation_messages.itemName"> 
+        <mat-error class="error-message" *ngIf="standardInventoryForm.get('itemName').hasError(validation.type)">
+        {{validation.message}}
+        </mat-error>
+        </mat-error>
+</mat-form-field>
+
+<mat-form-field class="example-full-width">
+    <mat-select placeholder="Category" formControlName="inventoryItemCategoryId" [(ngModel)]="inventoryItem.inventoryItemCategoryId"  name="inventoryItemCategory" required>
+        <mat-option *ngFor="let itemCategory of itemCategories" [(value)]="itemCategory.id">{{ itemCategory.name }}</mat-option>
+    </mat-select>
+        <mat-error *ngFor="let validation of validation_messages.inventoryItemCategoryId"> 
+        <mat-error class="error-message" *ngIf="standardInventoryForm.get('inventoryItemCategoryId').hasError(validation.type)">
+        {{validation.message}}
+        </mat-error>
+        </mat-error>   
+</mat-form-field>
+
+<mat-form-field class="example-full-width" >
+    <mat-select placeholder="Sub Category" formControlName="inventoryItemSubCategoryId" [(ngModel)]="inventoryItem.inventoryItemSubCategoryId" name="subcategory" id="standard-inventory-order-quantity" required>
+        <mat-option *ngFor="let subCategory of selectedInventorySubCategory" [value]="subCategory.id">{{ subCategory.name }}</mat-option>
+    </mat-select>  
+        <mat-error *ngFor="let validation of validation_messages.inventoryItemSubCategoryId"> 
+        <mat-error class="error-message" *ngIf="standardInventoryForm.get('inventoryItemSubCategoryId').hasError(validation.type)">
+        {{validation.message}}
+        </mat-error>
+        </mat-error>   
+</mat-form-field>  
+
+<mat-form-field class="example-full-width" >
+    <mat-select placeholder="Order Quantity Basis" formControlName="quantityUnitOfMesureId" [(ngModel)]="inventoryItem.quantityUnitOfMesureId" name="orderQuantity" id="standard-inventory-order-quantity" required>
+        <mat-option *ngFor="let unitOfMeasure of quantityUnitOfMeasure" [value]="unitOfMeasure.id">{{ unitOfMeasure.name }}</mat-option>
+    </mat-select>  
+        <mat-error *ngFor="let validation of validation_messages.quantityUnitOfMesureId"> 
+        <mat-error class="error-message" *ngIf="standardInventoryForm.get('quantityUnitOfMesureId').hasError(validation.type)">
+        {{validation.message}}
+        </mat-error>
+        </mat-error>   
+</mat-form-field>  
+
+
+<mat-form-field class="example-full-width">
+    <mat-select placeholder="Seasonality" formControlName="seasonality" [(ngModel)]="inventoryItem.seasonality"  name="seasonality" id="standard-inventory-season" required>
+        <mat-option *ngFor="let seasonality of seasonalityTypes" [value]="seasonality">{{ seasonality }}</mat-option>
+    </mat-select>
+        <mat-error *ngFor="let validation of validation_messages.seasonality"> 
+        <mat-error class="error-message" *ngIf="standardInventoryForm.get('seasonality').hasError(validation.type)">
+        {{validation.message}}
+        </mat-error>
+        </mat-error>  
+</mat-form-field>
+
+<mat-form-field class="example-full-width">
+    <input type="number" matInput placeholder="Minimum Inventory Level" maxlength="5" formControlName="minimumInventory"  [(ngModel)]="inventoryItem.minimumInventory" name="minimumInventory" id="standard-inventory-minimum-level" required >
+        <mat-error *ngFor="let validation of validation_messages.minimumInventory"> 
+        <mat-error class="error-message" *ngIf="standardInventoryForm.get('minimumInventory').hasError(validation.type)">
+        {{validation.message}}
+        </mat-error>
+        </mat-error> 
+</mat-form-field>
+
+</div>
+</mat-tab>
+
+<mat-tab label="Image">
+<div class="example-container" style="height: auto">
+<br/><h2 mat-dialog-title>Upload Standard Inventory Item Image</h2>
+ <button mat-raised-button color="primary" (click)="fileInput.click()" style="width:125px" id="standard-inventory-btn-image">Select  Image</button>
+<br>
+<img src="{{url||'assets/images/default.png'}}" style="height: 250px" style="width:250px"> <br/>
+<input 
+ style="display: none" 
+ type="file" (change)="onSelectFile($event)" 
+ #fileInput>
+  </div>
+ </mat-tab>
+ </mat-tab-group>
+</mat-dialog-content>
+        
+        <mat-dialog-actions align="end">
+            <button  mat-raised-button [mat-dialog-close]="true" color="primary" id="standard-inventory-btn-cancel">Cancel</button>
+    <button  mat-raised-button cdkFocusInitial  (click)="save()" color="primary" [disabled]="!standardInventoryForm.valid" id="standard-inventory-btn-save">Save</button>
+</mat-dialog-actions>
+</form>

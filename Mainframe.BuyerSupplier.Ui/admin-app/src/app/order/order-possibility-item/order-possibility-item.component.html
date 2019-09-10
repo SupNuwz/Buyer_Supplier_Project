@@ -1,0 +1,64 @@
+<mat-card flex="grow" class="full-width-card">
+  <mat-card-header>
+    <mat-card-title>
+        Supplier Base: {{orderOptimizedPossibilityDto.supplierBase}}                            
+    </mat-card-title>
+    <mat-card-subtitle>
+      <b>
+          Item Cart Cost :  Rs. {{orderOptimizedPossibilityDto.itemCost}} <br/>
+          Delivery Cost  :  Rs. {{orderOptimizedPossibilityDto.deliveryCost}} <br/>
+          Total Cost     :  Rs. {{orderOptimizedPossibilityDto.orderValue}} 
+      </b>         
+    </mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content >
+    <div class="grid-container">
+        <table mat-table matSortActive="id" matSortDirection="asc" [dataSource]="orderOptimizedDetailsData" matSort  class="full-width-table" aria-label="Elements">
+       
+          <!-- Item Name -->
+          <ng-container matColumnDef="itemName" >
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Item </th>
+            <td mat-cell *matCellDef="let element"> {{element.itemName}} </td>
+          </ng-container>
+
+          <!-- UOM -->
+          <ng-container matColumnDef="uom" >
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Unit of Measure </th>
+            <td mat-cell *matCellDef="let element"> {{element.unitOfMeasureName}} </td>
+          </ng-container>
+
+          <!-- Qty -->
+          <ng-container matColumnDef="qty" >
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Qty </th>
+              <td mat-cell *matCellDef="let element"> {{element.qty}} </td>
+            </ng-container>
+
+            <!-- Unit Price-->
+          <ng-container matColumnDef="unitPrice" >
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Unit Price </th>
+              <td mat-cell *matCellDef="let element"> {{element.unitPrice}} </td>
+            </ng-container>
+
+            <!-- Value -->
+          <ng-container matColumnDef="value" >
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Value </th>
+              <td mat-cell *matCellDef="let element"> {{element.value}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            
+        </table>
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions>
+      <button class="more-button" mat-raised-button  
+        (click)="SelectButtonClick()" color="primary">
+          Select this Option
+      </button>
+  </mat-card-actions>  
+
+
+</mat-card>

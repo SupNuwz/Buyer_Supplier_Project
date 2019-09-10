@@ -1,0 +1,10 @@
+<h2 mat-dialog-title> {{ messageCaption }}</h2>
+<mat-dialog-content class="mat-typography">
+    <div class="example-container">
+       {{ messageBody }} 
+    </div>
+    </mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close color="primary" id="confirmation-btn-no">No</button>
+  <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+  <button  mat-raised-button cdkFocusInitial  (click)="Confirm()" color="primary" id="confirmation-btn-yes">Yes</button>

@@ -1,0 +1,10 @@
+.delivery-slot-container {
+    display: flex;
+    flex-direction: column;
+    min-width: 400px;
+    
+  }
+  
+  .delivery-slot-container > * {
+    width: 100%;   
+  }

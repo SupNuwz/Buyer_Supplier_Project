@@ -1,0 +1,17 @@
+th {
+    text-align: center;
+    max-width: 50px;  
+    word-wrap: break-word;  
+}
+td{
+    max-width:  10px;
+    word-break: break-word;
+}
+.mat-row {
+    height: auto;
+  }
+  
+  .mat-cell {
+    padding: 10px 10px 10px 0;
+  }
+ 

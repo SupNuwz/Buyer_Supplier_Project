@@ -1,0 +1,52 @@
+<div class="grid-container">
+ 
+    <h1 class="mat-h1">Order Book</h1> 
+    <br/>
+  
+      <h4 class="mat-h4" *ngIf="OrderBookList?.data.length==0">
+      No Orders found.
+    </h4> 
+  
+     <mat-form-field class="full-width-table" *ngIf="OrderBookList?.data.length > 0">
+        <input matInput (keyup)="applyFilter()" placeholder="Search" [(ngModel)]="filterValue">
+    </mat-form-field> 
+  
+    <h4 class="mat-h4" *ngIf="OrderBookList?.data.length>0 && OrderBookList?.filteredData.length==0">
+       No matching records found
+    </h4>
+      
+    <div class="mat-elevation-z8" >
+      <table mat-table  matSortActive="id" matSortDirection="asc"  [dataSource]="OrderBookList" matSort  class="full-width-table" aria-label="Elements">
+  
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+    
+    <!-- id Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Order ID </th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="buyerId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Buyer ID </th>
+        <td mat-cell *matCellDef="let element"> {{element.buyerId}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="orderRefNo">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Order reference No </th>
+          <td mat-cell *matCellDef="let element"> {{element.orderRefNo}} </td>
+        </ng-container>
+
+    <ng-container matColumnDef="viewMore">
+        <th mat-header-cell *matHeaderCellDef  style="width: 50px"> </th>
+        <td mat-cell  *matCellDef="let element"> 
+        <button mat-button (click)="viewMore(element)" ><mat-icon  title="View more" >more</mat-icon>
+        </button></td> 
+      </ng-container>
+    
+  <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;">  </tr>
+</table>
+<mat-paginator 
+[pageSizeOptions]="[10,20, 30, 40]">
+</mat-paginator>

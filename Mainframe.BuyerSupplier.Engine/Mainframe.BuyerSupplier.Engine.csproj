@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <ApplicationIcon />
+    <StartupObject />
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Mainframe.BuyerSupplier.Common\Mainframe.BuyerSupplier.Common.csproj" />
+    <ProjectReference Include="..\Mainframe.BuyerSupplier.Data\Mainframe.BuyerSupplier.Data.csproj" />
+  </ItemGroup>
+
+</Project>

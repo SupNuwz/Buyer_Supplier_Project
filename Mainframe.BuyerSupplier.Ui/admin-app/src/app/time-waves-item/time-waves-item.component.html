@@ -1,0 +1,40 @@
+<form [formGroup]="wavesForm" validate>
+        <h2 mat-dialog-title> {{header}}</h2>
+        <mat-dialog-content class="mat-typography">
+            <div class="example-container">
+    
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Wave Name" maxlength="20" [(ngModel)]="waveType.name" formControlName="name" name="name" #wavename="matInput" id="time-wave-name"  required>
+                    <mat-error *ngFor="let validation of validationMessages.name">
+                        <mat-error class="error-message" *ngIf="wavesForm.get('name').hasError(validation.type)">
+                            {{validation.message}}
+                        </mat-error>
+                    </mat-error>
+                </mat-form-field>
+            
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Time" type="time" [(ngModel)]="waveType.time" formControlName="time" name="time" id="time-wave-time" required>
+                    <mat-error *ngFor="let validation of validationMessages.time">
+                        <mat-error class="error-message" *ngIf="wavesForm.get('time').hasError(validation.type)">
+                            {{validation.message}}
+                        </mat-error>
+                    </mat-error>
+                </mat-form-field>
+            
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Description"  maxlength="100" [(ngModel)]="waveType.description" formControlName="description" name="description" id="time-wave-des">
+                    <mat-error *ngFor="let validation of validationMessages.description">
+                        <mat-error class="error-message" *ngIf="wavesForm.get('description').hasError(validation.type)">
+                            {{validation.message}}
+                        </mat-error>
+                    </mat-error>
+                </mat-form-field>
+            
+            </div>            
+        </mat-dialog-content>
+            
+        <mat-dialog-actions align="end">
+            <button  mat-raised-button [mat-dialog-close]="true" color="primary" id="time-wave-btn-cancel"> Cancel </button>
+            <button  mat-raised-button cdkFocusInitial  (click)="save()" color="primary" [disabled]="!wavesForm.valid" id="time-wave-btn-save"> Save </button>
+        </mat-dialog-actions>
+    </form>

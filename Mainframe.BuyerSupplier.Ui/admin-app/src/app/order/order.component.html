@@ -1,0 +1,217 @@
+<mat-horizontal-stepper labelPosition="bottom" [linear]="isLinear" #stepper>
+
+  <mat-step [stepControl]="orderHeaderGroup">
+
+    <form [formGroup]="orderHeaderGroup">
+
+      <ng-template matStepLabel>Fill the Delivery Details</ng-template>
+
+      <div>
+        <mat-form-field  class="example-third-one-width-control">
+          <input matInput [matDatepicker]="picker" placeholder="Expected Delivery Date" 
+            name="expectedDiliveredDate" [min]="minDate" 
+            (dateChange)="DateChange($event)" formControlName="expectedDiliveredDate" id="order-delivery-date" (focus)="picker.open()" required> 
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngFor="let validation of validation_messages.expectedDiliveredDate">
+            <mat-error class="error-message" *ngIf="orderHeaderGroup.get('expectedDiliveredDate').hasError(validation.type)">
+              {{validation.message}}
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field  class="example-third-one-width-control">
+          <mat-select placeholder="Delivery Slot" name="deliverySlot" formControlName="deliverySlot" id="order-delivery-slot" required 
+          (selectionChange)="OnDeliverySlotChange($event)">
+          <mat-option *ngFor="let deliverySlot of deliverySlotList"  [value]="deliverySlot"  [disabled]="deliverySlot.disabled">{{ deliverySlot.slotName }}</mat-option>
+          </mat-select>  
+          <mat-error *ngFor="let validation of validation_messages.deliverySlot">
+            <mat-error class="error-message" *ngIf="orderHeaderGroup.get('deliverySlot').hasError(validation.type)">
+              {{validation.message}}
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field  class="example-third-one-width-control">
+          <mat-select placeholder="Supplier Category" name="supplierCategory" formControlName="supplierCategory" id="order-supplier-category" required>
+            <mat-option *ngFor="let category of categories" [value]="category">{{ category }}</mat-option>
+          </mat-select>                            
+          <mat-error *ngFor="let validation of validation_messages.supplierCategory">
+            <mat-error class="error-message" *ngIf="orderHeaderGroup.get('supplierCategory').hasError(validation.type)">
+              {{validation.message}}
+            </mat-error>
+          </mat-error>
+        </mat-form-field>  
+      </div>
+
+      <div *ngIf="orderHeaderGroup.get('orderType').value==1">
+        <mat-form-field  class="example-third-one-width-control">
+          <mat-select placeholder="Order Assignment Option Selection" formControlName="orderAssignmentOption">
+            <mat-option value="1">Lowest Price Option</mat-option>
+            <mat-option value="2">Highest Quality Option</mat-option>
+            <mat-option value="3">Best Optimal Solution</mat-option>
+          </mat-select>                           
+          <mat-error *ngFor="let validation of validation_messages.orderAssignmentOption">
+            <mat-error class="error-message" *ngIf="orderHeaderGroup.get('orderAssignmentOption').hasError(validation.type)">
+              {{validation.message}}
+            </mat-error>
+          </mat-error>
+        </mat-form-field>  
+      </div>
+      
+      <div>
+        <button mat-raised-button [disabled]="!orderHeaderGroup.valid" color="primary" matStepperNext id="order-btn-next1">Next</button>
+      </div>
+
+    </form>
+
+  </mat-step>
+
+  <mat-step [stepControl]="itemSelectionGroup">
+    
+    <form [formGroup]="itemSelectionGroup" >
+      <ng-template matStepLabel>Select the items</ng-template>
+      
+      <div  class="example-container"> 
+
+        <mat-grid-list formArrayName="orderDetailsArray" [cols]="breakpoint" rowHeight="2:2" (window:resize)="onResize($event)">
+          <mat-grid-tile [colspan]="1" [rowspan]="1" *ngFor="let standardInventory of standardInventoryItems" >
+            <app-cart-item [(standardInventoryItem)]="standardInventory" 
+              (AddProduct)="onAddProduct(this.standardInventory = $event)" 
+              (RemoveProduct)="onRemoveProduct(this.standardInventory = $event)" >
+            </app-cart-item>
+          </mat-grid-tile>
+        </mat-grid-list>
+
+      </div>
+
+      <div>
+        <button mat-raised-button class="right-margin-button" color="primary" id="order-btn-back" matStepperPrevious>Back</button>
+        <button mat-raised-button class="right-margin-button" [disabled]="!itemSelectionGroup.valid" color="primary" id="order-btn-next2" matStepperNext>Next</button>
+      </div>
+
+    </form>
+
+  </mat-step>
+
+  <mat-step>
+
+    <ng-template matStepLabel>Order Summary & Submit</ng-template>
+
+    <div>
+      <h4 class="mat-h4" >
+        <b>Expected Delivery Date :</b> {{orderHeaderGroup.get('expectedDiliveredDate').value | date:'shortDate'}}
+      </h4>
+    </div>
+
+    <div>
+      <h4 class="mat-h4" >
+        <b>Delivery Slot :</b> {{orderHeaderGroup.get('deliverySlot').value.slotName}}
+      </h4>
+    </div>
+
+    <div>
+      <h4 class="mat-h4" >
+        <b>Supplier Category :</b> {{orderHeaderGroup.get('supplierCategory').value}}
+      </h4>
+    </div>
+
+    <div *ngIf="orderHeaderGroup.get('orderType').value==1" >
+      <h3 class="mat-h3" >
+        This order proceed as <b>Pre-Order</b>
+      </h3>
+    </div>
+
+    <br>
+
+    <div class="mat-elevation-z8">
+
+      <table mat-table matSortActive="id" matSortDirection="asc" [dataSource]="orderDetailsData" class="mat-elevation-z8" class="full-width-table" 
+        matSort aria-label="Elements">
+
+        <!-- Item Column -->
+        <ng-container matColumnDef="itemName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Item </th>
+            <td mat-cell *matCellDef="let element"> {{element.itemName}} </td>
+        </ng-container>
+
+        <!-- Qty Column -->
+        <ng-container matColumnDef="qty">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Qty </th>
+            <td mat-cell *matCellDef="let element"> {{element.qty}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>  
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 20, 50]"></mat-paginator>
+
+    </div>
+    
+    <br>
+
+    <div>
+      <!-- <button mat-button color="primary" matStepperPrevious>Back</button>        -->
+      <button mat-raised-button class="right-margin-button" color="primary" (click)="stepper.reset()" id="order-btn-reset">Reset</button>
+      <button mat-raised-button class="right-margin-button" color="primary" (click)="SaveOrder()" id="order-btn-save">Submit</button>
+    </div>
+
+  </mat-step>
+
+  <mat-step *ngIf="orderHeaderGroup.get('orderType').value==2">
+    <ng-template matStepLabel>Order Confirmation</ng-template>
+
+    <div> 
+        <ul className="clearfix">
+            <li *ngFor="let orderOptimizedPossibility of orderOptimizedPossibilities" >
+              <h3>
+                <div [ngSwitch]="orderOptimizedPossibility.orderPossibilityType">
+                  <div *ngSwitchCase="1">
+                    Lowest Price Option
+                  </div>
+                  <div *ngSwitchCase="2">
+                    Highest Quality Option
+                  </div>
+                  <div *ngSwitchCase="3">
+                    Best Optimal Option
+                  </div>
+                </div>
+              </h3>
+              <app-order-possibility-item [(orderOptimizedPossibilityDto)]="orderOptimizedPossibility" 
+              (SelectOrderOptimization)="ConfirmOrderOptimization($event)"  >
+            </app-order-possibility-item>
+            <br/>
+            </li>
+          </ul>
+
+          <!-- 
+
+        <mat-grid-list cols="1" columnWidth="100%">
+            <mat-grid-tile
+                *ngFor="let orderOptimizedPossibility of orderOptimizedPossibilities"
+                [colspan]="1">
+                <app-order-possibility-item [(orderOptimizedPossibilityDto)]="orderOptimizedPossibility" 
+                (SelectOrderOptimization)="ConfirmOrderOptimization($event)"  >
+              </app-order-possibility-item>
+            </mat-grid-tile>
+          </mat-grid-list>
+
+        <mat-grid-list cols="1" >
+          <mat-grid-tile  *ngFor="let orderOptimizedPossibility of orderOptimizedPossibilities" >
+            <app-order-possibility-item [(orderOptimizedPossibilityDto)]="orderOptimizedPossibility" 
+              (SelectOrderOptimization)="ConfirmOrderOptimization($event)"  >
+            </app-order-possibility-item>
+          </mat-grid-tile>
+        </mat-grid-list> -->
+
+      </div>
+
+  </mat-step>
+  
+</mat-horizontal-stepper>

@@ -1,0 +1,52 @@
+/* You can add global styles to this file, and also import other style files 
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+*/
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+html,body{
+    height: 100%;
+}
+
+body {
+    margin: 0;
+}
+
+.grid-container {
+    margin: 20px;
+  }
+  
+  .full-width-table {
+    width: 100%;
+  }
+  
+  .example-card{
+    width: 400px;
+    margin-left: 200px;
+    margin-top: 50px;
+    }
+  
+    .example-full-width{
+        width: 450px;
+    }
+  
+     .example-card {
+        display: flex;
+        flex-direction: column;
+      }
+  
+      .example-container {
+        display: flex;
+        flex-direction: column;
+        min-width: 400px;
+        
+      }
+      
+      .example-container > * {
+        width: 100%;
+       
+      }    
+
+      .cdk-overlay-pane{  
+        max-height: 87% !important;
+      }

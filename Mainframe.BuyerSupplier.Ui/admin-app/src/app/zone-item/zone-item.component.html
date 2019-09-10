@@ -1,0 +1,43 @@
+<form [formGroup]="zoneForm" validate>
+
+  <h2 mat-dialog-title> {{header}}</h2>
+  <mat-dialog-content class="mat-typography">
+  <div class="example-container">
+  
+<mat-form-field class="example-full-width">
+    <mat-select placeholder="Supplier Base Name" formControlName="supplierBaseID" [(ngModel)]="zoneItem.supplierBaseID"  name="zoneSupplierBaseName" id="zone-supplierBaseName" required>
+        <mat-option *ngFor="let zones of zoneSupplierList" [(value)]="zones.supplierBaseId">{{ zones.supplierBaseName }}</mat-option>
+    </mat-select>
+        <mat-error *ngFor="let validation of validation_messages.supplierBaseID"> 
+        <mat-error class="error-message" *ngIf="zoneForm.get('supplierBaseID').hasError(validation.type)">
+        {{validation.message}}
+        </mat-error>
+        </mat-error>   
+</mat-form-field>
+    
+<mat-form-field class="example-full-width">
+    <input  matInput placeholder="Zone Name" formControlName="name" [(ngModel)]="zoneItem.name" name="zoneName" id="zone-name" required>
+        <mat-error *ngFor="let validation of validation_messages.name"> 
+        <mat-error class="error-message" *ngIf="zoneForm.get('name').hasError(validation.type)">
+        {{validation.message}}
+        </mat-error>
+        </mat-error>
+</mat-form-field>
+
+<mat-form-field class="example-full-width">
+    <input  matInput placeholder="Description" formControlName="description" [(ngModel)]="zoneItem.description" name="description" id="zone-description" required>
+        <mat-error *ngFor="let validation of validation_messages.description"> 
+        <mat-error class="error-message" *ngIf="zoneForm.get('description').hasError(validation.type)">
+        {{validation.message}}
+        </mat-error>
+        </mat-error>
+  </mat-form-field>
+  
+  </div>
+  </mat-dialog-content>
+          
+  <mat-dialog-actions align="end">
+    <button  mat-raised-button [mat-dialog-close]="true" color="primary" id="zone-btn-cancel">Cancel</button>
+    <button  mat-raised-button cdkFocusInitial  (click)="save()" color="primary" [disabled]="!zoneForm.valid" id="zone-btn-save">Save</button>
+  </mat-dialog-actions>
+</form>

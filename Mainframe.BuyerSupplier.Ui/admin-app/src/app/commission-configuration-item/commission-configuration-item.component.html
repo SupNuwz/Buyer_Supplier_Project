@@ -1,0 +1,72 @@
+<form [formGroup]="commissionForm" validate>
+
+  <h2 mat-dialog-title> {{header}}</h2>
+  <mat-dialog-content class="mat-typography">
+  <div class="example-container">
+    
+<mat-form-field class="example-full-width">
+    <input  matInput placeholder="Commission Name" formControlName="name" #commissionItemName="matInput" [(ngModel)]="commissionItem.name" name="commissionName" id="commission-name" required>
+        <mat-error *ngFor="let validation of validation_messages.name"> 
+        <mat-error class="error-message" *ngIf="commissionForm.get('name').hasError(validation.type)">
+        {{validation.message}}
+        </mat-error>
+        </mat-error>
+</mat-form-field>
+  
+<mat-form-field class="example-full-width">
+    <input  matInput [matDatepicker]="picker" (focus)="picker.open()" placeholder="From Date (mm/dd/yyyy)" formControlName="fromDate" [(ngModel)]="commissionItem.fromDate" name="fromDate" id="commission-fromDate" required>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngFor="let validation of validation_messages.fromDate"> 
+        <mat-error class="error-message" *ngIf="commissionForm.get('fromDate').hasError(validation.type)">
+        {{validation.message}}
+        </mat-error>
+        </mat-error>
+</mat-form-field>
+
+<mat-form-field class="example-full-width">
+    <input  matInput matInput [matDatepicker]="pickerTo" (focus)="pickerTo.open()" placeholder="To Date (mm/dd/yyyy)" formControlName="toDate" [(ngModel)]="commissionItem.toDate" name="toDate" id="commission-toDate" required>
+    <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+    <mat-datepicker #pickerTo></mat-datepicker>    
+        <mat-error *ngFor="let validation of validation_messages.toDate"> 
+        <mat-error class="error-message" *ngIf="commissionForm.get('toDate').hasError(validation.type)">
+        {{validation.message}}
+        </mat-error>
+        </mat-error>
+</mat-form-field>
+
+<mat-form-field class="example-full-width">
+    <input  matInput type="time" placeholder="From Time (HH:mm)" formControlName="fromTime" [(ngModel)]="commissionItem.fromTime" name="fromTime" id="commission-fromTime" required>
+        <mat-error *ngFor="let validation of validation_messages.fromTime"> 
+        <mat-error class="error-message" *ngIf="commissionForm.get('fromTime').hasError(validation.type)">
+        {{validation.message}}
+        </mat-error>
+        </mat-error>
+</mat-form-field>
+
+<mat-form-field class="example-full-width">
+    <input  matInput type="time" placeholder="To Time (HH:mm)" formControlName="toTime" [(ngModel)]="commissionItem.toTime" name="toTime" id="commission-toTime" required>
+        <mat-error *ngFor="let validation of validation_messages.toTime"> 
+        <mat-error class="error-message" *ngIf="commissionForm.get('toTime').hasError(validation.type)">
+        {{validation.message}}
+        </mat-error>
+        </mat-error>
+</mat-form-field>
+
+<mat-form-field class="example-full-width">
+    <input  matInput type="number" placeholder="Rate %" formControlName="rate" [(ngModel)]="commissionItem.rate" name="rate" id="commission-rate" required>
+        <mat-error *ngFor="let validation of validation_messages.rate"> 
+        <mat-error class="error-message" *ngIf="commissionForm.get('rate').hasError(validation.type)">
+        {{validation.message}}
+        </mat-error>
+        </mat-error>
+</mat-form-field>
+  
+  </div>
+  </mat-dialog-content>
+          
+  <mat-dialog-actions align="end">
+    <button  mat-raised-button [mat-dialog-close]="true" color="primary" id="commission-btn-cancel">Cancel</button>
+    <button  mat-raised-button cdkFocusInitial  (click)="save()" color="primary" [disabled]="!commissionForm.valid" id="commission-btn-save">Save</button>
+  </mat-dialog-actions>
+</form>

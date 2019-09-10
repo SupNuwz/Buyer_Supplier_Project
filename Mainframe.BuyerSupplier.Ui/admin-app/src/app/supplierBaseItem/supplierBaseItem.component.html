@@ -1,0 +1,57 @@
+
+  <form [formGroup]="supplierBaseForm" validate>
+  <h2 mat-dialog-title> {{header}} </h2>
+
+  <mat-dialog-content class="mat-typography">
+
+  <div class="example-container">
+
+  <mat-form-field class="example-full-width" >
+    <input matInput placeholder="Supplier Base Name" maxlength="20" [(ngModel)]="supplierBaseItem.supplierBaseName"  
+    name="supplierBaseName" formControlName="supplierBaseName" #basename="matInput" id="supplier-base-name" required>
+    
+    <mat-error *ngFor="let validation of validation_messages.supplierBaseName">
+
+      <mat-error class="error-message" *ngIf="supplierBaseForm.get('supplierBaseName').hasError(validation.type)">
+      
+      {{validation.message}}
+      
+      </mat-error>
+      
+      </mat-error>
+
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+      <mat-select placeholder="Delivery Slot" [(ngModel)]="supplierBaseItem.deliverySlot"
+       name="deliverySlot" formControlName="deliverySlot" id="supplier-base-delivery-slot" required>
+        <mat-option *ngFor="let deliverySlot of deliverySlots" [value]="deliverySlot">{{ deliverySlot }}</mat-option>
+      </mat-select>
+
+      <mat-error *ngFor="let validation of validation_messages.deliverySlot">
+
+        <mat-error class="error-message" *ngIf="supplierBaseForm.get('deliverySlot').hasError(validation.type)">
+        
+        {{validation.message}}
+        
+        </mat-error>
+        
+        </mat-error>
+
+    </mat-form-field>
+
+  </div>
+
+  </mat-dialog-content>
+
+
+
+  <mat-dialog-actions align="end">
+    <button mat-raised-button [mat-dialog-close]="true" color="primary" id="supplier-base-btn-cancel"> Cancel</button> 
+    <button mat-raised-button cdkFocusInitial (click)="save()" color="primary" [disabled]="!supplierBaseForm.valid" id="supplier-base-btn-save"> Save</button> 
+  </mat-dialog-actions>
+
+</form>
+
+
+    

@@ -1,0 +1,24 @@
+.example-card{
+    width: 400px;
+    margin-left: 200px;
+    margin-top: 50px;
+    }
+  
+    .example-full-width{
+        width: 350px;
+    }
+  
+     .example-card {
+        display: flex;
+        flex-direction: column;
+      }
+  
+  
+      .example-container {
+        display: flex;
+        flex-direction: column;
+      }
+      
+      .example-container > * {
+        width: 100%;
+      }

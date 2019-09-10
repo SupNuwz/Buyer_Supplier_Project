@@ -1,0 +1,40 @@
+<mat-card [formGroup]="cartItemGroup" class="dashboard-card" noValidate>
+  <mat-card-header>
+      <div mat-card-avatar></div>
+    <mat-card-title>
+        {{standardInventoryItem.itemName}}                             
+    </mat-card-title>
+    <mat-card-subtitle> 
+        {{standardInventoryItem.quantityUnitOfMeasureName}} 
+    </mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content class="dashboard-card-content">
+        
+    <mat-form-field class="dashboard-card-control">
+        <input  type="number" matInput placeholder="Quantity" 
+        formControlName="qty" [(ngModel)] = "standardInventoryItem.qty" 
+        name="qty" required>  
+        <mat-error *ngFor="let validation of validation_messages.qty">
+          <mat-error class="error-message" *ngIf="cartItemGroup.get('qty').hasError(validation.type)">
+            {{validation.message}}
+          </mat-error>
+        </mat-error>                                      
+    </mat-form-field>
+        
+  </mat-card-content>  
+  
+  <mat-card-actions>
+    <button class="more-button" mat-raised-button *ngIf="standardInventoryItem.added"  
+      (click)="RemoveProductClick()" 
+      color="primary" [disabled]="cartItemGroup.invalid">
+        Remove Product
+    </button>
+    <button class="more-button" mat-raised-button *ngIf="! standardInventoryItem.added"  
+      (click)="AddProductClick()" 
+      color="primary" [disabled]="cartItemGroup.invalid">
+        Add Product
+    </button>
+  </mat-card-actions>
+      
+</mat-card>

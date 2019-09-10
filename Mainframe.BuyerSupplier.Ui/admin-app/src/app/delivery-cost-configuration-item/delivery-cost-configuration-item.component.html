@@ -1,0 +1,76 @@
+<form [formGroup]="costConfigerForm" validate>
+  <h2 mat-dialog-title> {{header}} </h2>
+  <mat-dialog-content class="mat-typography">
+    <div class="example-container">
+  
+  
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Delivery Cost Configuration Name" maxlength="20" formControlName="name"  [(ngModel)]="deliveryCostConfigurationItem.name"  name="name" #deliveryCostConfigurationName="matInput" id="delivery-cost-name" required>
+          <mat-error *ngFor="let validation of validationMessages.name">
+            <mat-error class="error-message" *ngIf="costConfigerForm.get('name').hasError(validation.type)">
+              {{validation.message}}
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
+  
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Delivery Cost Configuration Description" maxlength="200" formControlName="description"  [(ngModel)]="deliveryCostConfigurationItem.description"  name="description" id="delivery-cost-des" required>
+          <mat-error *ngFor="let validation of validationMessages.description">
+            <mat-error class="error-message" *ngIf="costConfigerForm.get('description').hasError(validation.type)">
+              {{validation.message}}
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
+  
+        
+        <mat-form-field class="example-full-width">
+            <mat-select placeholder="Supplier Base Location" formControlName="baseLocation" [(ngModel)]="deliveryCostConfigurationItem.baseLocationID" name="Base Location ID" id="delivery-cost-location" required>
+              <mat-option *ngFor="let supplierBaseItem of supplierBaseList" [value]="supplierBaseItem.supplierBaseId">
+                {{ supplierBaseItem.supplierBaseName }}
+              </mat-option>
+            </mat-select> 
+            <mat-error *ngFor="let validation of validationMessages.baseLocation">
+              <mat-error class="error-message" *ngIf="costConfigerForm.get('baseLocation').hasError(validation.type)">
+                {{validation.message}}
+              </mat-error>
+            </mat-error>
+        </mat-form-field>
+  
+        <mat-form-field class="example-full-width">
+          <input type="number" matInput placeholder="Base Fare (Rs.)" maxlength="7" formControlName="baseFare"  [(ngModel)]="deliveryCostConfigurationItem.baseFare"  name="baseFare" id="delivery-cost-base-fare" required>
+          <mat-error *ngFor="let validation of validationMessages.baseFare">
+            <mat-error class="error-message" *ngIf="costConfigerForm.get('baseFare').hasError(validation.type)">
+              {{validation.message}}
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
+  
+        <mat-form-field class="example-full-width">
+          <input type="number" matInput placeholder="Base Distance (km)"  maxlength="7" formControlName="baseDistance"  [(ngModel)]="deliveryCostConfigurationItem.baseDistance"  name="baseDistance" id="delivery-cost-base-distance" required>
+          <mat-error *ngFor="let validation of validationMessages.baseDistance">
+            <mat-error class="error-message" *ngIf="costConfigerForm.get('baseDistance').hasError(validation.type)">
+              {{validation.message}}
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
+  
+        <mat-form-field class="example-full-width">
+          <input type="number" matInput placeholder="Additional rate per km"  maxlength="7" formControlName="additionalRate"  [(ngModel)]="deliveryCostConfigurationItem.additionalRate"  name="additionalRate" id="delivery-cost-additional-rate" required>
+          <mat-error *ngFor="let validation of validationMessages.additionalRate">
+            <mat-error class="error-message" *ngIf="costConfigerForm.get('additionalRate').hasError(validation.type)">
+              {{validation.message}}
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
+  
+    </div>
+  </mat-dialog-content>
+  
+  <mat-dialog-actions align="end">
+    <button mat-raised-button [mat-dialog-close]="true" color="primary" id="delivery-cost-btn-cancel"> Cancel</button> 
+    <button mat-raised-button cdkFocusInitial (click)="save()" color="primary" [disabled]="!costConfigerForm.valid" id="delivery-cost-btn-save"> Save</button> 
+  </mat-dialog-actions>
+</form>
+ 
+
+    

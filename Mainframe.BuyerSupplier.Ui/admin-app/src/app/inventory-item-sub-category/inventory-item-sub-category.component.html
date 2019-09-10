@@ -1,0 +1,75 @@
+<div class="grid-container">
+  <h1 class="mat-h1">Inventory Item Sub Category </h1>  
+  <button mat-raised-button (click)="add()" color="primary" id="inventory-item-sub-category-btn-add">Add new Inventory Item Sub Category</button>
+  <br/>
+  <br/>
+
+  <h4 class="mat-h4" *ngIf="dataSource?.data.length==0">
+      No Inventory item sub categories found.
+    </h4>
+
+    <mat-form-field class="full-width-table" *ngIf="dataSource?.data.length>0">
+        <input matInput (keyup)="applyFilter()" placeholder="Search" [(ngModel)]="filterValue" id="inventory-item-sub-category-search">
+    </mat-form-field>
+
+    <h4 class="mat-h4" *ngIf="dataSource?.filteredData.length==0 && dataSource?.data.length>0">
+        No matching records found
+       </h4> 
+
+  <div class="mat-elevation-z8" >
+
+<table mat-table [dataSource]="dataSource" 
+  matSortActive="id" matSortDirection="asc" 
+ class="full-width-table" matSort aria-label="Elements">
+
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+ 
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="inventoryItemCategoryID">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Inventory Item Category Name</th>
+      <td mat-cell *matCellDef="let element"> {{element.categoryName}} </td>
+    </ng-container>
+
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Inventory Item Sub Category Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="description">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Inventory Item Sub Category Description</th>
+    <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="edit">
+      <th mat-header-cell *matHeaderCellDef style="width: 50px"></th>
+      <td mat-cell *matCellDef="let element"> 
+      <button mat-button (click)="update(element)"> <mat-icon  title="Edit" id="inventory-item-sub-category-btn-edit">edit</mat-icon></button>
+      </td>
+  </ng-container>
+
+  <ng-container matColumnDef="delete">
+      <th mat-header-cell *matHeaderCellDef style="width: 50px"></th>
+      <td mat-cell *matCellDef="let element">
+      <button mat-button (click)="delete(element)" ><mat-icon  title="Delete" id="inventory-item-sub-category-btn-delete">delete</mat-icon></button> 
+      </td>
+  </ng-container>
+
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<mat-paginator
+[length]="dataSource.filteredData.length"
+[pageIndex]="0"
+[pageSize]="10"
+[pageSizeOptions]="[10, 20, 50, 100]">
+</mat-paginator>
+</div>
+</div>

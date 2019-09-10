@@ -1,0 +1,22 @@
+.dashboard-card-content {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .example-third-one-width-control {
+    width: 33%;
+  }
+  
+  .dashboard-card-control {
+    width: 70%;
+  }
+
+  .right-margin-button{
+    margin-right: 10px;
+  }
+
+  .full-width-card {
+    display: flex;
+    flex-direction: row;
+  }
+  

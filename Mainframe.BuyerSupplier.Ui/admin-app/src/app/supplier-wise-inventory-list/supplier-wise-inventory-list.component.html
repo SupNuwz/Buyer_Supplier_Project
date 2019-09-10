@@ -1,0 +1,56 @@
+<div class="grid-container">
+    <h1 class="mat-h1">Supplier Wise Inventory Lists</h1>
+    <div class="mat-elevation-z8">
+   
+        <table mat-table [dataSource]="suppliersList" class="full-width-table" matSort
+         matSortActive="supplier" matSortDirection="asc" 
+         matSort aria-label="Elements">
+  
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+      <ng-container matColumnDef="supplier">
+       <th mat-header-cell *matHeaderCellDef> Supplier Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.supplierName}} </td>
+      </ng-container>
+  
+      <!-- Inventory Name column -->
+      <ng-container matColumnDef="itemName">
+        <th mat-header-cell *matHeaderCellDef> Inventory Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.element.inventoryItemName}} </td>
+      </ng-container>
+    
+      <!-- Quantity column -->
+      <ng-container matColumnDef="qty">
+        <th mat-header-cell *matHeaderCellDef> Quantity </th>
+        <td mat-cell *matCellDef="let element"> {{element.element.qty}} </td>
+      </ng-container>
+    
+      <!-- Unit Price column -->
+      <ng-container matColumnDef="unitPrice">
+        <th mat-header-cell *matHeaderCellDef> Unit Price </th>
+        <td mat-cell *matCellDef="let element"> {{element.element.unitPrice}} </td>
+      </ng-container>     
+  
+  
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
+  
+  
+    <ng-container matColumnDef="groupHeader">
+        <td colspan="999" mat-cell *matCellDef="let groupBy"><strong> {{groupBy.element.supplierName}}</strong></td>
+      </ng-container>
+    
+      <tr mat-row *matRowDef="let row; columns: ['groupHeader']; when: isGroup" matRipple 
+      class="element-row" 
+      [class.expanded]="expandedElement == row"
+      (click)="expandedElement = row"></tr>
+  
+  
+  
+  <tr mat-row *matRowDef="let row; columns: displayedColumns; when: isExpansionDetailRow"
+      [@detailExpand]="expandedElement && (row.element.supplierName == expandedElement.element.supplierName) ? 'expanded' : 'collapsed'"
+      style="overflow: hidden">
+    </tr>
+    </table>
+  </div>
+    </div>

@@ -1,0 +1,47 @@
+<form [formGroup]="supplierInventoryForm" validate>
+  <h2 mat-dialog-title>{{heading}}</h2>
+  <mat-dialog-content class="mat-typography">
+
+    <div class="example-container">
+
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Unit Price" type="number" formControlName="unitPrice" [(ngModel)]="supplierInventoryItem.unitPrice"  name="SupplierInventoryList" id="supplier-inventory-quantity" required>
+        <mat-error *ngFor="let validation of validationMessages.unitPrice">
+          <mat-error class="error-message" *ngIf="supplierInventoryForm.get('unitPrice').hasError(validation.type)">
+            {{validation.message}}
+          </mat-error>
+        </mat-error>
+      </mat-form-field>  
+    
+    <!-- <mat-form-field class="example-full-width">
+      <input name = "SupplierInventoryList" matInput placeholder="Unit Price" [(ngModel)]="supplierInventoryItem.unitPrice" [ngModelOptions]="{standalone: true}" name="unitPrice" id="supplier-inventory-unit-price" required>
+      <mat-error *ngIf="formControl.hasError('required')">
+        Unit Price is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+                    -->
+    <!-- <mat-form-field class="example-full-width">
+      <input matInput type="number" placeholder="Quantity" [(ngModel)]="supplierInventoryItem.qty" [ngModelOptions]="{standalone: true}" name="qty" id="supplier-inventory-quantity" required>
+      <mat-error *ngIf="formControl.hasError('required')">
+        Quantity is <strong>required</strong>
+      </mat-error>
+    </mat-form-field> -->
+
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Quantity" type="number" formControlName="qty" [(ngModel)]="supplierInventoryItem.qty"  name="qty" id="supplier-inventory-quantity" required>
+        <mat-error *ngFor="let validation of validationMessages.qty">
+          <mat-error class="error-message" *ngIf="supplierInventoryForm.get('qty').hasError(validation.type)">
+            {{validation.message}}
+          </mat-error>
+        </mat-error>
+      </mat-form-field>  
+    
+    </div>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button  mat-raised-button [mat-dialog-close]="true" color="primary" id="supplier-inventory-btn-cancel">Cancel</button>
+    <button  mat-raised-button cdkFocusInitial  (click)="save()" color="primary" id="supplier-inventory-btn-save" [disabled]="!supplierInventoryForm.valid" >Save</button>
+  </mat-dialog-actions>
+</form>
